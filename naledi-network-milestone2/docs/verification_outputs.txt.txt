@@ -1,0 +1,42 @@
+==================================================
+SWITCH VERIFICATION: ACCESS-SW01
+==================================================
+
+# show spanning-tree
+VLAN0020
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    4116
+             Address     0050.0F6E.3C87
+             Port        23(FastEthernet0/23)
+  Interface Fa0/23: Root FWD
+  Interface Fa0/24: Desg FWD
+
+VLAN0030
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    4126
+             Address     0050.0F6E.3C87
+             Port        23(FastEthernet0/23)
+  Interface Fa0/23: Root FWD
+  Interface Fa0/24: Desg FWD
+
+# show vlan brief
+VLAN 20: Software_Dev (Fa0/1 - Fa0/12)
+VLAN 30: Quality_Assurance (Fa0/13 - Fa0/20)
+VLAN 99: Native_Unused
+
+# show interfaces trunk
+Fa0/23 - 802.1q trunking - Native VLAN 99
+Fa0/24 - 802.1q trunking - Native VLAN 99
+
+==================================================
+ROUTER VERIFICATION: EDGE-R01
+==================================================
+
+# show ip interface brief
+GigabitEthernet0/0/0 : 10.53.100.1 (up/up)
+GigabitEthernet0/0/1 : 10.53.100.5 (up/up)
+
+# show ip route
+S 10.53.0.0/16 [1/0] via 10.53.100.2
+C 10.53.100.0/30 directly connected, GigabitEthernet0/0/0
+C 10.53.100.4/30 directly connected, GigabitEthernet0/0/1
