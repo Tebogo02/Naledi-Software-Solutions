@@ -1,0 +1,32 @@
+! ==========================================
+! Switch Configuration: ACCESS-SW01
+! Feature Focus: Rapid-PVST, PortFast, BPDU Guard, Trunking
+! ==========================================
+
+hostname ACCESS-SW01
+
+! 1. Rapid Spanning-Tree Mode
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+
+! 2. VLAN 20 Access Ports (Fa0/1 - Fa0/12)
+interface range FastEthernet 0/1 - 12
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+! 3. VLAN 30 Access Ports (Fa0/13 - Fa0/20)
+interface range FastEthernet 0/13 - 20
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit
+
+! 4. Trunk Links to Core/Distribution (Fa0/23 - Fa0/24)
+interface range FastEthernet 0/23 - 24
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
